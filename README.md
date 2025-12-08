@@ -42,7 +42,7 @@ La simulación $\text{S}_1$ prueba el escenario de falla más crítico:
 | Recurso | Descripción |
 | :--- | :--- |
 | **Video Demostrativo del $\text{S}_1$ (¡NUEVO!)** | \[INSERTE EL ENLACE A SU VIDEO AQUÍ] Demuestra visualmente el disparo del $\text{DO}$ y el $\text{A} \to 0$ STOP. |
-| **Diapositivas de Arquitectura** | \[INSERTE EL ENLACE A SUS DIAPOSITIVAS AQUÍ] Documentación visual y técnica de la $\mathbf{V}$-Function. |
+| **Diapositivas de Arquitectura** | \[ https://drive.google.com/file/d/1qNzFSJ97iIbcGc-PtkMFCwIUwavv_T_n/view?usp=drivesdk] Documentación visual y técnica de la $\mathbf{V}$-Function. |
 
 ## 📈 Próximos Pasos (Financiación AISF)
 
