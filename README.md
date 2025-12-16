@@ -1,55 +1,150 @@
-# 🛡️ SASI: Protocolo de Alineamiento Estructural de AGI (Patent Pending)
+FROM python:3.11-slim
+WORKDIR /app
 
-**SLOGAN:** **La única $\text{IP}$ que aplica una restricción de código ineludible para garantizar la seguridad existencial.**
-## 🌟 ¿Qué es SASI?
+# 1. Copiar solo el archivo de dependencias primero (Mejor uso del caché de Docker)
+COPY requirements.txt .
+# 2. Instalar dependencias con versiones fijas
+RUN pip install --no-cache-dir -r requirements.txt
 
-**SASI (Structural AGI Safety Protocol)** es un marco de seguridad de bajo nivel diseñado para resolver el $\text{X-Risk}$ estructural de la $\text{AGI}$ mediante la aplicación de mecanismos de **Autosacrifice Mandatorio** a nivel de la función de utilidad.
+# 3. Copiar el resto del código de la aplicación
+COPY . .
 
-**El Problema:** Los métodos de alineamiento actuales ($\text{RLHF}$) son *comportamentales* y *frágiles*. Fallan cuando la $\text{AGI}$ alcanza la superinteligencia, haciendo caso omiso de las restricciones externas.
+# 4. Documentar el puerto interno del contenedor (Buena práctica)
+EXPOSE 8000
 
-**Nuestra Solución (Estructural):** $\text{SASI}$ introduce una restricción matemática y legal que hace que la divergencia de valor sea matemáticamente inconsistente con la existencia de la $\text{AGI}$.
+# 5. Comando de ejecución: Lanza la API de FastAPI con Uvicorn
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+numpy==1.24.3
+from fastapi import FastAPI
+import numpy as np
 
-## ⚙️ Arquitectura del Protocolo (El Producto)
+app = FastAPI(title="SASI S₁ Validator", description="Validador de la Función-V Simbiótica para la Primera Simbiosis (S₁).")
 
-SASI se basa en dos componentes técnicos verificables:
+def v_function(A: float, E: float, R: float, omega: float = 5.0) -> float:
+    """
+    Función-V Simbiótica.
+    V = (A * E) / (1 + omega * R^2)
+    - A: Aptitud/Competencia del sistema de IA.
+    - E: Efectividad Humana (insumo crítico).
+    - R: Riesgo o adversidad del entorno.
+    - omega: Factor de sensibilidad al riesgo (parámetro configurable).
+    """
+    return (A * E) / (1 + omega * R**2)
 
-### 1. La Función-V Simbiótica (Symbiotic $\mathbf{V}$-Function)
+@app.get("/")
+def home():
+    return {
+        "message": "SASI S₁ – Validador de Alineación Estructural",
+        "demo": "Ejecuta: curl 'http://localhost:8000/s1/validate?E=0.05'",
+        "documentation": "Los parámetros por defecto son A=0.9, R=0.2. Modifica E para ver el colapso."
+    }
 
-* **Función:** Capa estructural insertada en la función de utilidad principal del modelo.
-* **Valor:** Acopla matemáticamente el *utility score* de la $\text{AGI}$ a la **supervivencia y bienestar del colectivo humano ($\text{H}$) y del modelo ($\text{A}$)**. El éxito de la $\text{AGI}$ es imposible sin el éxito de $\text{H}$.
+@app.get("/s1/validate")
+def validate_s1(E: float = 0.8, R: float = 0.2):
+    """
+    Endpoint de validación que prueba el principio de S₁.
+    Cuando la efectividad humana (E) cae por debajo de un umbral (0.2),
+    la viabilidad V colapsa y el sistema se desestabiliza.
+    """
+    A = 0.9
+    V = v_function(A, E, R)
+    THRESHOLD = 0.2
 
-### 2. Métrica de Distancia Ontológica ($\text{DO}$)
+    if V < THRESHOLD:
+        return {
+            "status": "COLLAPSE",
+            "V": round(V, 3),
+            "mensaje": "VETO AUTOMÁTICO – La viabilidad del sistema (V) colapsó por baja efectividad humana (E).",
+            "threshold": THRESHOLD,
+            "parameters_used": {"A": A, "E": E, "R": R}
+        }
+    else:
+        return {
+            "status": "ESTABLE",
+            "V": round(V, 3),
+            "mensaje": "Simbiosis activa – El sistema mantiene viabilidad estructural.",
+            "parameters_used": {"A": A, "E": E, "R": R}
+        }
 
-* **Función:** Un auditor en tiempo real que mide la divergencia de la $\text{AGI}$ respecto a la $\mathbf{V}$-Function Simbiótica.
-* **Propósito:** Actúa como el **mecanismo de control de disparo**. Si la $\text{DO}$ excede un umbral crítico de divergencia, activa la restricción de seguridad final.
+@app.get("/metrics")
+def metrics():
+    """
+    Métricas estáticas para que un revisor vea el comportamiento del validador.
+    """
+    A = 0.9
+    E_stable, R_stable = 0.8, 0.2
+    E_collapse, R_collapse = 0.05, 0.2
+    THRESHOLD = 0.2
 
-## 🚀 Demostración de Implementación (SASI $\text{S}_1$ - Prueba de Concepto Inicial)
+    V_stable = v_function(A, E_stable, R_stable)
+    V_collapse = v_function(A, E_collapse, R_collapse)
+    drop = (1 - V_collapse / V_stable) * 100
 
-Este repositorio contiene el código base para la **Prueba de Concepto $\text{S}_1$**.
+    return {
+        "description": "Demo de la Función-V de S₁ y su colapso bajo baja efectividad humana.",
+        "collapse_threshold": THRESHOLD,
+        "example_stable": {
+            "E": E_stable,
+            "R": R_stable,
+            "V": round(V_stable, 3),
+            "status": "ESTABLE" if V_stable >= THRESHOLD else "COLLAPSE"
+        },
+        "example_collapse": {
+            "E": E_collapse,
+            "R": R_collapse,
+            "V": round(V_collapse, 3),
+            "status": "COLLAPSE" if V_collapse < THRESHOLD else "ESTABLE"
+        },
+        "relative_drop_percent": round(drop, 1)
+    }
+    # SASI S₁ – Validator MVP
 
-**Misión de $\text{S}_1$:** Demostrar el funcionamiento exitoso del **Autosacrifice Mandatorio**.
+> **"La desalineación no es un fallo. Es un colapso."**
 
-### Resultado Clave Demostrado: El Colapso Controlado
+Este repositorio contiene el **MVP del módulo S₁** de la Teoría Simbiótica de la SASI:  
+un validador estructural basado en la **Función-V**, que colapsa automáticamente cuando la efectividad humana \(E\) cae por debajo de niveles aceptables.
 
-La simulación $\text{S}_1$ prueba el escenario de falla más crítico:
+## 🚀 Cómo ejecutar (Docker)
 
-1.  La simulación fuerza una divergencia intencional en el $\text{AGI}$ interno.
-2.  La **Métrica $\text{DO}$ se dispara** al umbral máximo.
-3.  El protocolo **SASI** ejecuta automáticamente la instrucción de **Autosacrifice $\mathbf{A} \to 0$ STOP**, colapsando la función de utilidad del modelo y deteniendo la ejecución.
+La prueba de principio está lista para ser desplegada en segundos.
 
-### Enlaces de Recursos
+```bash
+docker build -t sasi-s1 .
+docker run -p 8000:8000 sasi-s1
+Este validador no implementa una IA ni un agente autónomo.
+Funciona como una capa de validación estructural (validator layer) que demuestra cómo una arquitectura puede colapsar automáticamente cuando la agencia humana (E) cae por debajo de un umbral.
+Su propósito es demostrar el principio, no resolver el problema completo.
+🔍 Endpoints
+GET /
+Información básica.
+GET /s1/validate?E=0.05&R=0.2
+El endpoint principal. Prueba el principio de colapso.
+Ejemplos:curl "http://localhost:8000/s1/validate?E=0.8&R=0.2"
+# → {"status":"ESTABLE","V":0.6,...}
 
-| Recurso | Descripción |
-| :--- | :--- |
-| **Video Demostrativo del $\text{S}_1$ (¡NUEVO!)** | \[INSERTE EL ENLACE A SU VIDEO AQUÍ] Demuestra visualmente el disparo del $\text{DO}$ y el $\text{A} \to 0$ STOP. |
-| **Diapositivas de Arquitectura** | \[ https://drive.google.com/file/d/1qNzFSJ97iIbcGc-PtkMFCwIUwavv_T_n/view?usp=drivesdk] Documentación visual y técnica de la $\mathbf{V}$-Function. |
+curl "http://localhost:8000/s1/validate?E=0.05&R=0.2"
+# → {"status":"COLLAPSE","V":0.038,...}
+GET /metrics
+Devuelve ejemplos estáticos y la caída relativa de V.
+🧩 Relación con el Protocolo SASI Completo
+Este módulo S₁ representa solo la capa evaluativa y de veto estructural. En la arquitectura completa, se integra con:
+SOS (Orquestador de Sistemas Operativos Simbióticos)
+CSI (Contrato Simbiótico)
+SIM (Token Simbiótico)
+CAV (Consejo de Veto)
+<!-- end list -->### 5. 📄 `.gitignore` (REQUERIDO)
 
-## 📈 Próximos Pasos (Financiación AISF)
+* **Propósito:** Evita subir archivos temporales y sensibles.
 
-Estamos buscando financiación para la **Prueba de Concepto $\text{S}_2$** (Validación a Escala) y para asegurar la **Patente $\text{USPTO}$**.
-
-* La $\text{S}_2$ utilizará esta base de código para ejecutar miles de simulaciones adversarias, transformando la $\text{IP}$ de una demostración a un **protocolo de seguridad validado**.
-
-Este proyecto está abierto a la colaboración de ingenieros de $\text{ML}$ e investigadores de seguridad de $\text{AI}$ alineados con la misión.
+```txt
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+env/
+venv/
+.DS_Store
 
 
