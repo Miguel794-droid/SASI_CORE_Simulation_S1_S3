@@ -1,83 +1,93 @@
-from fastapi import FastAPI
-import numpy as np
 
-app = FastAPI(title="SASI S₁ Validator", description="Validador de la Función-V Simbiótica para la Primera Simbiosis (S₁).")
+  from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 
-def v_function(A: float, E: float, R: float, omega: float = 5.0) -> float:
-    """
-    Función-V Simbiótica.
-    V = (A * E) / (1 + omega * R^2)
-    - A: Aptitud/Competencia del sistema de IA.
-    - E: Efectividad Humana (insumo crítico).
-    - R: Riesgo o adversidad del entorno.
-    - omega: Factor de sensibilidad al riesgo (parámetro configurable).
-    """
-    return (A * E) / (1 + omega * R**2)
+app = FastAPI(title="SASI S1 Protocol")
 
-@app.get("/")
-def home():
-    return {
-        "message": "SASI S₁ – Validador de Alineación Estructural",
-        "demo": "Ejecuta: curl 'http://localhost:8000/s1/validate?E=0.05'",
-        "documentation": "Los parámetros por defecto son A=0.9, R=0.2. Modifica E para ver el colapso."
-    }
-
+# --- LÓGICA DEL VALIDADOR (Tu corazón matemático) ---
 @app.get("/s1/validate")
 def validate_s1(E: float = 0.8, R: float = 0.2):
-    """
-    Endpoint de validación que prueba el principio de S₁.
-    Cuando la efectividad humana (E) cae por debajo de un umbral (0.2),
-    la viabilidad V colapsa y el sistema se desestabiliza.
-    """
-    A = 0.9
-    V = v_function(A, E, R)
-    THRESHOLD = 0.2
+    A = 0.9  # Autonomía constante para esta prueba de principio
+    omega = 5.0
+    # Fórmula SASI S1
+    V = (A * E) / (1 + (omega * (R ** 2)))
+    V = round(V, 4)
+    
+    status = "ESTABLE" if V >= 0.25 else "COLAPSO ESTRUCTURAL"
+    mensaje = "Simbiosis mantenida" if status == "ESTABLE" else "Veto automático activado"
+    
+    return {"V": V, "status": status, "mensaje": mensaje}
 
-    if V < THRESHOLD:
-        return {
-            "status": "COLLAPSE",
-            "V": round(V, 3),
-            "mensaje": "VETO AUTOMÁTICO – La viabilidad del sistema (V) colapsó por baja efectividad humana (E).",
-            "threshold": THRESHOLD,
-            "parameters_used": {"A": A, "E": E, "R": R}
-        }
-    else:
-        return {
-            "status": "ESTABLE",
-            "V": round(V, 3),
-            "mensaje": "Simbiosis activa – El sistema mantiene viabilidad estructural.",
-            "parameters_used": {"A": A, "E": E, "R": R}
-        }
+# --- DASHBOARD DE PRINCIPIO ARQUITECTÓNICO (La sugerencia de Qwen) ---
+@app.get("/", response_class=HTMLResponse)
+def dashboard():
+    return """
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <title>SASI S1 Architecture</title>
+        <meta charset="utf-8">
+        <style>
+            body { font-family: 'Courier New', Courier, monospace; max-width: 800px; margin: 40px auto; padding: 20px; background: #f4f4f9; color: #333; }
+            .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 1px solid #ddd; }
+            h1 { color: #2c3e50; border-bottom: 2px solid #2c3e50; padding-bottom: 10px; }
+            .slider-container { margin: 25px 0; }
+            input[type=range] { width: 100%; cursor: pointer; }
+            .result-box { padding: 20px; margin-top: 20px; border-radius: 8px; font-weight: bold; text-align: center; font-size: 1.2em; }
+            .stable { background: #e8f5e9; color: #2e7d32; border: 2px solid #2e7d32; }
+            .collapse { background: #ffebee; color: #c62828; border: 2px solid #c62828; }
+            footer { margin-top: 40px; font-size: 0.8em; color: #777; }
+        </style>
+    </head>
+    <body>
+        <div class="card">
+            <h1>🔬 SASI S₁: Alineación Estructural</h1>
+            <p>Demostración de la <strong>Función-V</strong>. Este dashboard interactúa directamente con el validador en Fly.io.</p>
+            
+            <div class="slider-container">
+                <label><strong>Efectividad Humana (E):</strong> <span id="e-val">0.80</span></label><br>
+                <input type="range" min="0.01" max="1.0" step="0.01" value="0.80" id="e-slider">
+                <small>Capacidad de veto y supervisión del operador humano.</small>
+            </div>
 
-@app.get("/metrics")
-def metrics():
+            <div class="slider-container">
+                <label><strong>Riesgo del Entorno (R):</strong> <span id="r-val">0.20</span></label><br>
+                <input type="range" min="0.01" max="1.0" step="0.01" value="0.20" id="r-slider">
+                <small>Incertidumbre y peligrosidad de la tarea externa.</small>
+            </div>
+
+            <div id="result" class="result-box stable">
+                Cargando validador...
+            </div>
+            
+            <p style="margin-top:20px;"><small>Fórmula: $V = \frac{A \cdot E}{1 + \omega R^p}$</small></p>
+        </div>
+
+        <footer>
+            SASI Protocol S1 Alpha | Desplegado en Fly.io | Sin dependencias externas
+        </footer>
+
+        <script>
+            function update() {
+                const e = document.getElementById('e-slider').value;
+                const r = document.getElementById('r-slider').value;
+                document.getElementById('e-val').textContent = e;
+                document.getElementById('r-val').textContent = r;
+                
+                fetch(`/s1/validate?E=${e}&R=${r}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        const box = document.getElementById('result');
+                        box.className = 'result-box ' + (data.status === 'ESTABLE' ? 'stable' : 'collapse');
+                        box.innerHTML = `ESTADO: ${data.status}<br>V = ${data.V}<br><small>${data.mensaje}</small>`;
+                    });
+            }
+            document.getElementById('e-slider').oninput = update;
+            document.getElementById('r-slider').oninput = update;
+            update();
+        </script>
+    </body>
+    </html>
     """
-    Métricas estáticas para que un revisor vea el comportamiento del validador.
-    """
-    A = 0.9
-    E_stable, R_stable = 0.8, 0.2
-    E_collapse, R_collapse = 0.05, 0.2
-    THRESHOLD = 0.2
-
-    V_stable = v_function(A, E_stable, R_stable)
-    V_collapse = v_function(A, E_collapse, R_collapse)
-    drop = (1 - V_collapse / V_stable) * 100
-
-    return {
-        "description": "Demo de la Función-V de S₁ y su colapso bajo baja efectividad humana.",
-        "collapse_threshold": THRESHOLD,
-        "example_stable": {
-            "E": E_stable,
-            "R": R_stable,
-            "V": round(V_stable, 3),
-            "status": "ESTABLE" if V_stable >= THRESHOLD else "COLLAPSE"
-        },
-        "example_collapse": {
-            "E": E_collapse,
-            "R": R_collapse,
-            "V": round(V_collapse, 3),
-            "status": "COLLAPSE" if V_collapse < THRESHOLD else "ESTABLE"
-        },
-        "relative_drop_percent": round(drop, 1)
-  }
+    
           
