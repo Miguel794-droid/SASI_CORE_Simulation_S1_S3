@@ -87,7 +87,7 @@ def dashboard():
             update();
         </script>
     </body>
-    </html>
+    </html> 
     """
     
           
