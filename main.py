@@ -83,7 +83,7 @@ def dashboard():
                     });
             }
             document.getElementById('e-slider').oninput = update;
-            document.getElementById('r-slider').oninput = update;
+            document.getElementById('r-slider').oninput = update; 
             update();
         </script>
     </body>
