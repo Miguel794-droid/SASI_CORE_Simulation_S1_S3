@@ -11,7 +11,7 @@ def validate_s1(E: float = 0.8, R: float = 0.2):
     omega = 5.0
     # Fórmula SASI S1
     V = (A * E) / (1 + (omega * (R ** 2)))
-    V = round(V, 4)
+    V = round(V, 4) 
     
     status = "ESTABLE" if V >= 0.25 else "COLAPSO ESTRUCTURAL"
     mensaje = "Simbiosis mantenida" if status == "ESTABLE" else "Veto automático activado"
