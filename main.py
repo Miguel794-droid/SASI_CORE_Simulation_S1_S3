@@ -1,15 +1,14 @@
-
-  from fastapi import FastAPI
+from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 
 app = FastAPI(title="SASI S1 Protocol")
 
-# --- LÓGICA DEL VALIDADOR (Tu corazón matemático) ---
+# --- LÓGICA DEL VALIDADOR ---
 @app.get("/s1/validate")
 def validate_s1(E: float = 0.8, R: float = 0.2):
-    A = 0.9  # Autonomía constante para esta prueba de principio
+    A = 0.9  # Autonomía constante
     omega = 5.0
-    # Fórmula SASI S1
+    # Fórmula SASI S1: V = (A * E) / (1 + omega * R^2)
     V = (A * E) / (1 + (omega * (R ** 2)))
     V = round(V, 4) 
     
@@ -18,7 +17,7 @@ def validate_s1(E: float = 0.8, R: float = 0.2):
     
     return {"V": V, "status": status, "mensaje": mensaje}
 
-# --- DASHBOARD DE PRINCIPIO ARQUITECTÓNICO (La sugerencia de Qwen) ---
+# --- DASHBOARD INTERACTIVO ---
 @app.get("/", response_class=HTMLResponse)
 def dashboard():
     return """
@@ -42,30 +41,25 @@ def dashboard():
     <body>
         <div class="card">
             <h1>🔬 SASI S₁: Alineación Estructural</h1>
-            <p>Demostración de la <strong>Función-V</strong>. Este dashboard interactúa directamente con el validador en Fly.io.</p>
+            <p>Demostración de la <strong>Función-V</strong>.</p>
             
             <div class="slider-container">
                 <label><strong>Efectividad Humana (E):</strong> <span id="e-val">0.80</span></label><br>
                 <input type="range" min="0.01" max="1.0" step="0.01" value="0.80" id="e-slider">
-                <small>Capacidad de veto y supervisión del operador humano.</small>
             </div>
 
             <div class="slider-container">
                 <label><strong>Riesgo del Entorno (R):</strong> <span id="r-val">0.20</span></label><br>
                 <input type="range" min="0.01" max="1.0" step="0.01" value="0.20" id="r-slider">
-                <small>Incertidumbre y peligrosidad de la tarea externa.</small>
             </div>
 
             <div id="result" class="result-box stable">
-                Cargando validador...
+                Conectando con el validador...
             </div>
             
-            <p style="margin-top:20px;"><small>Fórmula: $V = \frac{A \cdot E}{1 + \omega R^p}$</small></p>
+            <p style="margin-top:20px;"><small>Fórmula: V = (A * E) / (1 + 5 * R²)</small></p>
         </div>
-
-        <footer>
-            SASI Protocol S1 Alpha | Desplegado en Fly.io | Sin dependencias externas
-        </footer>
+        <footer>SASI Protocol S1 Alpha | Fly.io</footer>
 
         <script>
             function update() {
@@ -79,7 +73,7 @@ def dashboard():
                     .then(data => {
                         const box = document.getElementById('result');
                         box.className = 'result-box ' + (data.status === 'ESTABLE' ? 'stable' : 'collapse');
-                        box.innerHTML = `ESTADO: ${data.status}<br>V = ${data.V}<br><small>${data.mensaje}</small>`;
+                        box.innerHTML = `ESTADO: \${data.status}<br>V = \${data.V}<br><small>\${data.mensaje}</small>`;
                     });
             }
             document.getElementById('e-slider').oninput = update;
@@ -89,5 +83,10 @@ def dashboard():
     </body>
     </html> 
     """
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+  
     
           
