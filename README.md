@@ -1,5 +1,5 @@
 # 🌍 Validador SASI S₁ – Alineación Estructural
-
+[![Sponsor](https://img.shields.io/badge/Sponsor-SASI-blue?logo=github)](https://opencollective.com/sasi)
 > **"La alineación no debe ser una regla impuesta. Debe ser la condición de estabilidad del sistema."**
 
 Este repositorio contiene un **validador mínimo de la Primera Simbiosis (S₁)** de la **Teoría Simbiótica de la Supra-inteligencia Artificial (SASI)**.
@@ -45,6 +45,14 @@ En la arquitectura completa, se integra con:
 - **CSI** (Contrato Simbiótico)  
 - **SIM** (Token Simbiótico)  
 - **CAV** (Consejo de Veto)
+## 💚 Apoya a SASI
 
+SASI es infraestructura pública abierta para la seguridad existencial de AGI.  
+Si valoras este trabajo, considera [patrocinarlo en Open Collective](https://opencollective.com/sasi).
+
+Tu apoyo permite:
+- Mantener el desarrollo de fases avanzadas (S₂, S₃, S₄),
+- Garantizar que SASI permanezca como bien público global,
+- Fortalecer la voz del Sur Global en la gobernanza de AGI.
 
 
