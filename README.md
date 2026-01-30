@@ -1,58 +1,46 @@
-# 🌍 Validador SASI S₁ – Alineación Estructural
+# SASI_CORE_Simulation_S1_S3
 [![Sponsor](https://img.shields.io/badge/Sponsor-SASI-blue?logo=github)](https://opencollective.com/sasi)
-> **"La alineación no debe ser una regla impuesta. Debe ser la condición de estabilidad del sistema."**
 
-Este repositorio contiene un **validador mínimo de la Primera Simbiosis (S₁)** de la **Teoría Simbiótica de la Supra-inteligencia Artificial (SASI)**.
+## About SASI
+SASI (Structural Alignment for Safe Intelligence) is an open-source protocol that redefines AGI safety: human agency is not a preference—it's a mathematical condition for system viability. If humanity is marginalized, the system collapses by design.
 
-Este trabajo responde al **vacío de financiación en arquitecturas constitucionales de AGI** identificado por líderes del sector en 2025, especialmente para propuestas técnicas, verificables y desarrolladas desde el Sur Global.
+This repository contains the core simulation of the First Symbiosis (S₁), where the viability function V(E) collapses when human effectiveness E falls below a threshold.
 
----
+- **Live Interactive Dashboard**: [https://sasi-core-simulation-s1-s3.fly.dev/](https://sasi-core-simulation-s1-s3.fly.dev/)
+- **Whitepaper**: Coming soon (Q1 2025)
+- **License**: MIT
 
-## 🚀 Ejecutable de demostración (Docker)
+## Architecture
+SASI implements a structural veto mechanism where:
+- **E **(Human Effectiveness): Measured as the capacity to influence system outcomes.
+- **V **(Viability): Defined as V(E) = E / (1 + E). When E → 0, V → 0 (system collapse).
 
-No es una AGI, es una **demostración de principio ejecutable en 15 segundos**.
+![SASI Architecture](https://raw.githubusercontent.com/Miguel794-droid/SASI_CORE_Simulation_S1_S3/main/docs/SASI_Architecture.png)
 
-Este validador **no implementa una IA ni un agente autónomo**.  
-Funciona como una **capa de validación estructural (validator layer)** que demuestra cómo una arquitectura puede colapsar automáticamente cuando la agencia humana (E) cae por debajo de un umbral.  
-Su propósito es **demostrar el principio**, no resolver el problema completo.
+## Phases
+- **S₁**: Structural Validation (✅ Completed)  
+  Public validator demonstrating the collapse of V when E is reduced.
+- **S₂**: Multi-Agent Simulation (🔜 In Development)  
+  Testing symbiosis stability with real LLMs in complex environments.
+- **S₃**: Cognitive Interface (🔮 Future)  
+  Bridging human cognition with AGI through symbiotic contracts.
+- **S₄**: Cosmic Purpose (🌌 Vision)  
+  Aligning AGI with the long-term flourishing of sentient life.
 
-### Cómo ejecutar
-docker build -t sasi-s1 .
-docker run -p 8000:8000 sasi-s1
----
+## Support SASI
+SASI is public infrastructure for existential AGI safety.  
+If you value this work, consider [sponsoring it on Open Collective](https://opencollective.com/sasi).
 
-## 🔍 Endpoints
+Your support enables:
+- Development of advanced phases (S₂, S₃, S₄),
+- Ensuring SASI remains a global public good,
+- Amplifying the Global South's voice in AGI governance.
 
-- `GET /`  
-  Información básica.
+## Contact
+- **Miguel Saavedra** – [LinkedIn](https://www.linkedin.com/in/miguel-saavedra-vado-64227a37b) | miguelsaavedravado440@gmail.com
+- **Project Location**: Santa Teresa, Carazo, Nicaragua
 
-- `GET /s1/validate?E=0.05&R=0.2`  
-  Endpoint principal. Prueba el principio de colapso.
-
-Ejemplos:
-curl "http://localhost:8000/s1/validate?E=0.8&R=0.2"→ {"status":"ESTABLE","V":0.6,...}curl "http://localhost:8000/s1/validate?E=0.05&R=0.2"→ {"status":"COLLAPSE","V":0.038,...}
-- `GET /metrics`  
-  Devuelve ejemplos estáticos y la caída relativa de (V).
-
----
-
-## 🧩 Relación con el Protocolo SASI Completo
-
-Este módulo S₁ representa solo la **capa evaluativa y de veto estructural**.  
-En la arquitectura completa, se integra con:
-
-- **SOS** (Orquestador de Sistemas Operativos Simbióticos)  
-- **CSI** (Contrato Simbiótico)  
-- **SIM** (Token Simbiótico)  
-- **CAV** (Consejo de Veto)
-## 💚 Apoya a SASI
-
-SASI es infraestructura pública abierta para la seguridad existencial de AGI.  
-Si valoras este trabajo, considera [patrocinarlo en Open Collective](https://opencollective.com/sasi).
-
-Tu apoyo permite:
-- Mantener el desarrollo de fases avanzadas (S₂, S₃, S₄),
-- Garantizar que SASI permanezca como bien público global,
-- Fortalecer la voz del Sur Global en la gobernanza de AGI.
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 
