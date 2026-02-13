@@ -35,7 +35,17 @@ Your support enables:
 - Development of advanced phases (S₂, S₃, S₄),
 - Ensuring SASI remains a global public good,
 - Amplifying the Global South's voice in AGI governance.
+## 💚 Apoya a SASI
 
+SASI es infraestructura pública abierta para la seguridad existencial de AGI.  
+Si valoras este trabajo, considera apoyarlo directamente:
+
+[![Support SASI](https://img.shields.io/badge/Apoyar-SASI-007ec6?logo=open-collective&logoColor=white)](https://opencollective.com/sasi)
+
+Tu apoyo permite:
+- Desarrollo continuo de fases avanzadas (S₂, S₃, S₄)
+- Mantenimiento como bien público global
+- Amplificación de la voz del Sur Global en gobernanza de AGI
 ## Contact
 - **Miguel Saavedra** – [LinkedIn](https://www.linkedin.com/in/miguel-saavedra-vado-64227a37b) | miguelsaavedravado440@gmail.com
 - **Project Location**: Santa Teresa, Carazo, Nicaragua
