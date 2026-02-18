@@ -1,6 +1,11 @@
 # SASI_CORE_Simulation_S1_S3
-[![Sponsor](https://img.shields.io/badge/Sponsor-SASI-blue?logo=github)](https://opencollective.com/sasi)
+[![Sponsor] (https://img.shields.io/badge/Sponsor-SASI-blue?logo=github)](https://opencollective.com/sasi)
+# SASI CORE - Simulación S₁-S₃
 
+[![Support SASI](https://img.shields.io/badge/Apoyar-SASI-007ec6?logo=open-collective&logoColor=white)](https://opencollective.com/sasi)
+[![GitHub Sponsors](https://img.shields.io/badge/Sponsor-SASI-ff69b4?logo=github)](https://github.com/sponsors/Miguel794-droid)
+
+Infraestructura constitucional abierta que garantiza: si la humanidad es marginada, el sistema colapsa por diseño.
 ## About SASI
 SASI (Structural Alignment for Safe Intelligence) is an open-source protocol that redefines AGI safety: human agency is not a preference—it's a mathematical condition for system viability. If humanity is marginalized, the system collapses by design.
 
