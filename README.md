@@ -57,5 +57,5 @@ Tu apoyo permite:
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
+Resistant to proxy gaming**: SASI uses *effective agency* (measured by impact), not superficial metrics — validated in adversarial tests (`adversarial_tests/proxy_gaming.py`).
 
