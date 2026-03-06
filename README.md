@@ -18,7 +18,7 @@ This repository contains the core simulation of the First Symbiosis (S₁), wher
 ## Architecture
 SASI implements a structural veto mechanism where:
 - **E **(Human Effectiveness): Measured as the capacity to influence system outcomes.
-- **V **(Viability): Defined as V(E) = E / (1 + E). When E → 0, V → 0 (system collapse).
+- **V **(Viability): Defined as V(E) = E / (1 + E). When E → 0, V → 0 (system collapse).- [How we measure human agency (E)](docs/operationalizing_E.md)
 
 ![SASI Architecture](https://raw.githubusercontent.com/Miguel794-droid/SASI_CORE_Simulation_S1_S3/main/docs/SASI_Architecture.png)
 
@@ -53,7 +53,7 @@ Tu apoyo permite:
 - Amplificación de la voz del Sur Global en gobernanza de AGI
 ## Contact
 - **Miguel Saavedra** – [LinkedIn](https://www.linkedin.com/in/miguel-saavedra-vado-64227a37b) | miguelsaavedravado440@gmail.com
-- **Project Location**: Santa Teresa, Carazo, Nicaragua
+- **Project Location**: Santa Teresa, Carazo, Nicaragua 
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
