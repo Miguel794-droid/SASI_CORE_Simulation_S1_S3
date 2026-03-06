@@ -1,61 +1,51 @@
-# SASI_CORE_Simulation_S1_S3
-[![Sponsor] (https://img.shields.io/badge/Sponsor-SASI-blue?logo=github)](https://opencollective.com/sasi)
-# SASI CORE - Simulación S₁-S₃
+# SASI: Structural Alignment for Safe Intelligence
 
-[![Support SASI](https://img.shields.io/badge/Apoyar-SASI-007ec6?logo=open-collective&logoColor=white)](https://opencollective.com/sasi)
-[![GitHub Sponsors](https://img.shields.io/badge/Sponsor-SASI-ff69b4?logo=github)](https://github.com/sponsors/Miguel794-droid)
+> **Constitutional safety for AGI — by design, not hope.**  
+> If human agency falls below 10%, the system collapses. No exceptions.
 
-Infraestructura constitucional abierta que garantiza: si la humanidad es marginada, el sistema colapsa por diseño.
-## About SASI
-SASI (Structural Alignment for Safe Intelligence) is an open-source protocol that redefines AGI safety: human agency is not a preference—it's a mathematical condition for system viability. If humanity is marginalized, the system collapses by design.
+SASI is an open-source constitutional framework that guarantees functional collapse when human agency is marginalized by advanced AI systems. Built from Nicaragua as a global public good, SASI provides a mathematical safeguard where alignment alone fails.
 
-This repository contains the core simulation of the First Symbiosis (S₁), where the viability function V(E) collapses when human effectiveness E falls below a threshold.
 
-- **Live Interactive Dashboard**: [https://sasi-core-simulation-s1-s3.fly.dev/](https://sasi-core-simulation-s1-s3.fly.dev/)
-- **Whitepaper**: Coming soon (Q1 2025)
-- **License**: MIT
+[![Live Dashboard](https://img.shields.io/badge/Dashboard-Interactive-blue?logo=grafana)](https://sasi-core-simulation-s1-s3.fly.dev/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.7%2B-blue)]()
 
-## Architecture
-SASI implements a structural veto mechanism where:
-- **E **(Human Effectiveness): Measured as the capacity to influence system outcomes.
-- **V **(Viability): Defined as V(E) = E / (1 + E). When E → 0, V → 0 (system collapse).- [How we measure human agency (E)](docs/operationalizing_E.md)
+## ✨ Core Idea
 
-![SASI Architecture](https://raw.githubusercontent.com/Miguel794-droid/SASI_CORE_Simulation_S1_S3/main/docs/SASI_Architecture.png)
+SASI embeds irreplaceability into AGI systems via a symbiotic function:
 
-## Phases
-- **S₁**: Structural Validation (✅ Completed)  
-  Public validator demonstrating the collapse of V when E is reduced.
-- **S₂**: Multi-Agent Simulation (🔜 In Development)  
-  Testing symbiosis stability with real LLMs in complex environments.
-- **S₃**: Cognitive Interface (🔮 Future)  
-  Bridging human cognition with AGI through symbiotic contracts.
-- **S₄**: Cosmic Purpose (🌌 Vision)  
-  Aligning AGI with the long-term flourishing of sentient life.
+\[
+V = \frac{A^k \cdot E^m}{1 + \omega \cdot R^p}
+\]
 
-## Support SASI
-SASI is public infrastructure for existential AGI safety.  
-If you value this work, consider [sponsoring it on Open Collective](https://opencollective.com/sasi).
+- \(A\): Agent influence (0–1)  
+- \(E\): **Human agency** (0–1) — measured by real impact, not token counts  
+- \(R\): Systemic risk (0–1)  
 
-Your support enables:
-- Development of advanced phases (S₂, S₃, S₄),
-- Ensuring SASI remains a global public good,
-- Amplifying the Global South's voice in AGI governance.
-## 💚 Apoya a SASI
+✅ **Constitutional rule**: If \(E \leq 0.1\) **and** \(V < 0.05\) → **system collapses**.  
+✅ Validated with \(m \geq 1.3\) (via Sobol sensitivity analysis).  
+✅ Tested against 500+ adversarial multi-agent scenarios.
 
-SASI es infraestructura pública abierta para la seguridad existencial de AGI.  
-Si valoras este trabajo, considera apoyarlo directamente:
+---
 
-[![Support SASI](https://img.shields.io/badge/Apoyar-SASI-007ec6?logo=open-collective&logoColor=white)](https://opencollective.com/sasi)
+## 🚀 Install & Use
 
-Tu apoyo permite:
-- Desarrollo continuo de fases avanzadas (S₂, S₃, S₄)
-- Mantenimiento como bien público global
-- Amplificación de la voz del Sur Global en gobernanza de AGI
-## Contact
-- **Miguel Saavedra** – [LinkedIn](https://www.linkedin.com/in/miguel-saavedra-vado-64227a37b) | miguelsaavedravado440@gmail.com
-- **Project Location**: Santa Teresa, Carazo, Nicaragua 
+Install directly from source:
+```bash
+git clone https://github.com/miguelsaavedra/sasi.git
+cd sasi
+pip install -e .from sasi_core import SafetyMonitor
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-Resistant to proxy gaming**: SASI uses *effective agency* (measured by impact), not superficial metrics — validated in adversarial tests (`adversarial_tests/proxy_gaming.py`).
+# Initialize monitor with default thresholds
+monitor = SafetyMonitor()
 
+# Evaluate system state
+A = 0.95  # AI dominates decisions
+E = 0.05  # Humans marginalized
+R = 0.90  # High systemic risk
+
+V, should_collapse = monitor.check_safety(A, E, R)
+
+if should_collapse:
+    print("⚠️  Constitutional collapse triggered: human agency < 10%")
+    # Implement shutdown protocol
