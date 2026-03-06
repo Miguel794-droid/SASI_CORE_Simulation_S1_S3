@@ -11,7 +11,7 @@ setup(
     description="SASI: Structural Alignment for Safe Intelligence — constitutional safety for AGI",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/miguelsaavedra/sasi",
+    url="https://github.com/Miguel794-droid/SASI_CORE_Simulation_S1_S3",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 3 - Alpha",
