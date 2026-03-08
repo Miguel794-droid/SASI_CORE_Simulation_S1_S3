@@ -1,4 +1,4 @@
-# SASI: Structural Alignment for Safe Intelligence
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18906007.svg)](https://doi.org/10.5281/zenodo.18906007)# SASI: Structural Alignment for Safe Intelligence
 
 > **Constitutional safety for AGI — by design, not hope.**  
 > If human agency falls below 10%, the system collapses. No exceptions.
