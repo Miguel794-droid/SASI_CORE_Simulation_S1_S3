@@ -1,6 +1,21 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
+import os
 
+# Contador público de interacciones con el dashboard
+COUNT_FILE = "simulation_count.txt"
+
+def get_count():
+    if os.path.exists(COUNT_FILE):
+        with open(COUNT_FILE, "r") as f:
+            return int(f.read().strip())
+    return 0
+
+def increment_count():
+    c = get_count() + 1
+    with open(COUNT_FILE, "w") as f:
+        f.write(str(c))
+    return c
 app = FastAPI(title="SASI S1 Protocol")
 
 # --- LÓGICA DEL VALIDADOR (Tu corazón matemático) ---
