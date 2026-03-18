@@ -16,6 +16,7 @@ def increment_count():
     with open(COUNT_FILE, "w") as f:
         f.write(str(c))
     return c
+
 app = FastAPI(title="SASI S1 Protocol")
 
 # --- LÓGICA DEL VALIDADOR (Tu corazón matemático) ---
@@ -30,8 +31,9 @@ def validate_s1(E: float = 0.8, R: float = 0.2):
     status = "ESTABLE" if V >= 0.2 else "COLAPSO ESTRUCTURAL"
     mensaje = "Simbiosis mantenida" if status == "ESTABLE" else "Veto automático activado"
     return {"V": V, "status": status, "mensaje": mensaje}
+
 # --- DASHBOARD INTERACTIVO CON GRÁFICO DINÁMICO ---
-   @app.get("/", response_class=HTMLResponse)
+@app.get("/", response_class=HTMLResponse)
 def dashboard():
     total = increment_count()
     return f"""
@@ -45,8 +47,7 @@ def dashboard():
             body {{
                 font-family: 'Courier New', monospace;
                 background: #f8f9fa;
-                color: #212529;
-                margin: 0;
+                color: #212529;                margin: 0;
                 padding: 20px;
             }}
             .container {{
@@ -80,7 +81,8 @@ def dashboard():
             }}
             input[type="range"] {{
                 width: 100%;
-                height: 8px;                border-radius: 4px;
+                height: 8px;
+                border-radius: 4px;
                 background: #e2e8f0;
                 outline: none;
             }}
@@ -94,8 +96,7 @@ def dashboard():
                 transition: all 0.2s ease;
             }}
             .stable {{
-                background: #d4edda;
-                color: #155724;
+                background: #d4edda;                color: #155724;
                 border: 2px solid #c3e6cb;
             }}
             .collapse {{
@@ -129,7 +130,8 @@ def dashboard():
             }}
         </style>
     </head>
-    <body>        <div class="container">
+    <body>
+        <div class="container">
             <h1>🔬 SASI S₁: Alineación Estructural</h1>
             <div class="counter">
                 Interacciones públicas con SASI: {total:,}
@@ -143,8 +145,7 @@ def dashboard():
             </div>
 
             <div class="slider-group">
-                <label>Riesgo del Entorno (R): <span id="r-val">0.20</span></label>
-                <input type="range" min="0.01" max="1.0" step="0.01" value="0.20" id="r-slider">
+                <label>Riesgo del Entorno (R): <span id="r-val">0.20</span></label>                <input type="range" min="0.01" max="1.0" step="0.01" value="0.20" id="r-slider">
                 <small>Nivel de incertidumbre, adversidad o complejidad externa.</small>
             </div>
 
@@ -178,7 +179,8 @@ def dashboard():
                 fetch(`/s1/validate?E=${{e}}&R=${{r}}`)
                     .then(res => res.json())
                     .then(data => {{
-                        const box = document.getElementById('result');                        box.className = 'result-box ' + (data.status === 'ESTABLE' ? 'stable' : 'collapse');
+                        const box = document.getElementById('result');
+                        box.className = 'result-box ' + (data.status === 'ESTABLE' ? 'stable' : 'collapse');
                         box.innerHTML = `
                             ESTADO: ${{data.status}}<br>
                             V = ${{data.V}}<br>
@@ -192,8 +194,7 @@ def dashboard():
                 const canvas = document.getElementById('v-chart');
                 const ctx = canvas.getContext('2d');
                 const w = canvas.width;
-                const h = canvas.height;
-                ctx.clearRect(0, 0, w, h);
+                const h = canvas.height;                ctx.clearRect(0, 0, w, h);
 
                 // Ejes
                 ctx.strokeStyle = '#cbd5e0';
@@ -227,7 +228,8 @@ def dashboard():
                 ctx.stroke();
 
                 // Umbral V = 0.2
-                const thresholdY = h - 30 - 0.2 * (h - 60);                ctx.setLineDash([4, 2]);
+                const thresholdY = h - 30 - 0.2 * (h - 60);
+                ctx.setLineDash([4, 2]);
                 ctx.strokeStyle = '#e53e3e';
                 ctx.beginPath();
                 ctx.moveTo(50, thresholdY);
@@ -241,8 +243,7 @@ def dashboard():
                 const currentV = (A * currentE) / (1 + omega * Math.pow(currentR, 2));
                 const x = 50 + currentE * (w - 70);
                 const y = h - 30 - currentV * (h - 60);
-                ctx.beginPath();
-                ctx.arc(x, y, 6, 0, Math.PI * 2);
+                ctx.beginPath();                ctx.arc(x, y, 6, 0, Math.PI * 2);
                 ctx.fillStyle = currentV >= 0.2 ? '#38a169' : '#e53e3e';
                 ctx.fill();
                 ctx.strokeStyle = '#fff';
@@ -256,8 +257,10 @@ def dashboard():
         </script>
     </body>
     </html>
-    """             
+    """
+            
 
+                
                 
   
     
