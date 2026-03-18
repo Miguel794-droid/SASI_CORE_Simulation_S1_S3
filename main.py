@@ -29,11 +29,8 @@ def validate_s1(E: float = 0.8, R: float = 0.2):
     
     status = "ESTABLE" if V >= 0.2 else "COLAPSO ESTRUCTURAL"
     mensaje = "Simbiosis mantenida" if status == "ESTABLE" else "Veto automático activado"
-    
     return {"V": V, "status": status, "mensaje": mensaje}
-
 # --- DASHBOARD INTERACTIVO CON GRÁFICO DINÁMICO ---
-
    @app.get("/", response_class=HTMLResponse)
 def dashboard():
     total = increment_count()
