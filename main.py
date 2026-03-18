@@ -33,9 +33,11 @@ def validate_s1(E: float = 0.8, R: float = 0.2):
     return {"V": V, "status": status, "mensaje": mensaje}
 
 # --- DASHBOARD INTERACTIVO CON GRÁFICO DINÁMICO ---
-@app.get("/", response_class=HTMLResponse)
+
+   @app.get("/", response_class=HTMLResponse)
 def dashboard():
-    return """
+    total = increment_count()
+    return f"""
     <!DOCTYPE html>
     <html lang="es">
     <head>
@@ -43,42 +45,49 @@ def dashboard():
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
-            body {
+            body {{
                 font-family: 'Courier New', monospace;
                 background: #f8f9fa;
                 color: #212529;
                 margin: 0;
                 padding: 20px;
-            }
-            .container {
+            }}
+            .container {{
                 max-width: 800px;
                 margin: 0 auto;
                 background: white;
                 border-radius: 12px;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.08);
                 padding: 30px;
-            }
-            h1 {
+            }}
+            h1 {{
                 color: #1a365d;
                 margin-top: 0;
                 font-size: 1.8em;
-            }            .slider-group {
+            }}
+            .counter {{
+                text-align: center;
+                margin: 15px 0;
+                font-weight: bold;
+                color: #2d3748;
+                font-size: 1.1em;
+            }}
+            .slider-group {{
                 margin: 25px 0;
-            }
-            label {
+            }}
+            label {{
                 display: block;
                 margin-bottom: 8px;
                 font-weight: bold;
                 color: #2d3748;
-            }
-            input[type="range"] {
+            }}
+            input[type="range"] {{
                 width: 100%;
-                height: 8px;
-                border-radius: 4px;
+                height: 8px;                border-radius: 4px;
                 background: #e2e8f0;
                 outline: none;
-            }
-            .result-box {
+            }}
+            .result-box {{
                 padding: 20px;
                 text-align: center;
                 font-size: 1.2em;
@@ -86,18 +95,18 @@ def dashboard():
                 border-radius: 8px;
                 margin: 25px 0;
                 transition: all 0.2s ease;
-            }
-            .stable {
+            }}
+            .stable {{
                 background: #d4edda;
                 color: #155724;
                 border: 2px solid #c3e6cb;
-            }
-            .collapse {
+            }}
+            .collapse {{
                 background: #f8d7da;
                 color: #721c24;
                 border: 2px solid #f5c6cb;
-            }
-            canvas {
+            }}
+            canvas {{
                 width: 100%;
                 max-width: 600px;
                 height: 200px;
@@ -106,25 +115,28 @@ def dashboard():
                 border-radius: 8px;
                 display: block;
                 margin: 25px auto;
-            }
-            .ontological-note {
+            }}
+            .ontological-note {{
                 background: #f0f7ff;
                 border-left: 4px solid #3182ce;
                 padding: 12px;
-                margin-top: 20px;                font-size: 0.95em;
+                margin-top: 20px;
+                font-size: 0.95em;
                 color: #2c5282;
-            }
-            footer {
+            }}
+            footer {{
                 margin-top: 30px;
                 text-align: center;
                 font-size: 0.85em;
                 color: #718096;
-            }
+            }}
         </style>
     </head>
-    <body>
-        <div class="container">
+    <body>        <div class="container">
             <h1>🔬 SASI S₁: Alineación Estructural</h1>
+            <div class="counter">
+                Interacciones públicas con SASI: {total:,}
+            </div>
             <p>La inteligencia superior solo puede existir en simbiosis con la agencia humana. Este simulador demuestra el colapso estructural cuando esa condición falla.</p>
 
             <div class="slider-group">
@@ -146,7 +158,7 @@ def dashboard():
             <canvas id="v-chart" width="600" height="200"></canvas>
 
             <p style="text-align:center; font-size:0.9em; color:#666;">
-                Fórmula: \( V = \\frac{A \\cdot E}{1 + \\omega R^2} \) &nbsp; | &nbsp; A = 0.9, ω = 5.0
+                Fórmula: \( V = \\frac{{A \\cdot E}}{{1 + \\omega R^2}} \) &nbsp; | &nbsp; A = 0.9, ω = 5.0
             </p>
 
             <div class="ontological-note">
@@ -160,26 +172,26 @@ def dashboard():
         </footer>
 
         <script>
-            function update() {                const e = parseFloat(document.getElementById('e-slider').value);
+            function update() {{                
+                const e = parseFloat(document.getElementById('e-slider').value);
                 const r = parseFloat(document.getElementById('r-slider').value);
                 document.getElementById('e-val').textContent = e.toFixed(2);
                 document.getElementById('r-val').textContent = r.toFixed(2);
                 
-                fetch(`/s1/validate?E=${e}&R=${r}`)
+                fetch(`/s1/validate?E=${{e}}&R=${{r}}`)
                     .then(res => res.json())
-                    .then(data => {
-                        const box = document.getElementById('result');
-                        box.className = 'result-box ' + (data.status === 'ESTABLE' ? 'stable' : 'collapse');
+                    .then(data => {{
+                        const box = document.getElementById('result');                        box.className = 'result-box ' + (data.status === 'ESTABLE' ? 'stable' : 'collapse');
                         box.innerHTML = `
-                            ESTADO: ${data.status}<br>
-                            V = ${data.V}<br>
-                            <small>${data.mensaje}</small>
+                            ESTADO: ${{data.status}}<br>
+                            V = ${{data.V}}<br>
+                            <small>${{data.mensaje}}</small>
                         `;
                         drawChart(e, r);
-                    });
-            }
+                    }});
+            }}
 
-            function drawChart(currentE, currentR) {
+            function drawChart(currentE, currentR) {{
                 const canvas = document.getElementById('v-chart');
                 const ctx = canvas.getContext('2d');
                 const w = canvas.width;
@@ -206,19 +218,19 @@ def dashboard():
                 const A = 0.9;
                 const omega = 5.0;
                 ctx.beginPath();
-                for (let e = 0; e <= 1.0; e += 0.01) {
+                for (let e = 0; e <= 1.0; e += 0.01) {{
                     const v = (A * e) / (1 + omega * Math.pow(currentR, 2));
                     const x = 50 + e * (w - 70);
-                    const y = h - 30 - v * (h - 60);                    if (e === 0) ctx.moveTo(x, y);
+                    const y = h - 30 - v * (h - 60);
+                    if (e === 0) ctx.moveTo(x, y);
                     else ctx.lineTo(x, y);
-                }
+                }}
                 ctx.strokeStyle = '#2b6cb0';
                 ctx.lineWidth = 2;
                 ctx.stroke();
 
                 // Umbral V = 0.2
-                const thresholdY = h - 30 - 0.2 * (h - 60);
-                ctx.setLineDash([4, 2]);
+                const thresholdY = h - 30 - 0.2 * (h - 60);                ctx.setLineDash([4, 2]);
                 ctx.strokeStyle = '#e53e3e';
                 ctx.beginPath();
                 ctx.moveTo(50, thresholdY);
@@ -239,7 +251,7 @@ def dashboard():
                 ctx.strokeStyle = '#fff';
                 ctx.lineWidth = 1.5;
                 ctx.stroke();
-            }
+            }}
 
             document.getElementById('e-slider').oninput = update;
             document.getElementById('r-slider').oninput = update;
@@ -247,7 +259,8 @@ def dashboard():
         </script>
     </body>
     </html>
-    """ 
+    """             
+
                 
   
     
